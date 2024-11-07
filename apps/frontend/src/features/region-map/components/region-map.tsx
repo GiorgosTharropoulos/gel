@@ -34,7 +34,7 @@ const featureCollection = feature(
 
 const identityProjection = d3
   .geoIdentity()
-  .fitSize([800, 600], featureCollection);
+  .fitSize([MAP_WIDTH, MAP_HEIGHT], featureCollection);
 const pathGenerator = d3.geoPath().projection(identityProjection);
 const featuresMap = new Map(featureCollection.features.map((d) => [d.id, d]));
 
