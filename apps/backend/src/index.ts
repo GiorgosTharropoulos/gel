@@ -82,15 +82,15 @@ export const app = hono
       .json<NationElectionResults>();
     return c.json(nationStatsToDTO(response));
   })
+  .get("/api/regions/winners", async (c) => {
+    const response = await http.get("dyn/v/eps.js").json<RegionWinner[]>();
+    return c.json(regionWinnerToDTO(response));
+  })
   .get("/api/regions/:regionId", async (c) => {
     const response = await http
       .get(`dyn/v/ep_${c.req.param("regionId")}.js`)
       .json<RegionResult>();
     return c.json(regionResultsToDTO(response));
-  })
-  .get("/api/regions/winners", async (c) => {
-    const response = await http.get("dyn/v/eps.js").json<RegionWinner[]>();
-    return c.json(regionWinnerToDTO(response));
   });
 
 serve(hono);
