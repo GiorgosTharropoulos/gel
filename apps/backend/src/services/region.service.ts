@@ -65,7 +65,7 @@ export function regionWinnerToDTO(winners: RegionWinner[]) {
     invariant(region, `Region with id ${winner.EP_ID} not found`);
 
     return {
-      district: {
+      region: {
         id: region.id,
         name: region.name,
         reporting: {
