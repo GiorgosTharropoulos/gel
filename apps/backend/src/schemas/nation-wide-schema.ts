@@ -32,6 +32,6 @@ const ElectionResultsSchema = z.object({
 });
 
 // Type inference
-type ElectionResults = z.infer<typeof ElectionResultsSchema>;
+export type ElectionResults = z.infer<typeof ElectionResultsSchema>;
 
 export { ElectionResultsSchema, PartyResultSchema };

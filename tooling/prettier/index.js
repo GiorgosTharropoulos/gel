@@ -27,7 +27,7 @@ const config = {
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
   importOrderTypeScriptVersion: "4.4.0",
   semi: true,
-  printWidth: 100,
+  printWidth: 80,
 };
 
 export default config;

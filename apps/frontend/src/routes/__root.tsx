@@ -11,8 +11,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootComponent() {
   return (
     <>
-      <div className="flex gap-2 p-2"></div>
-      <hr />
       <Outlet />
       <TanStackRouterDevtools />
       <BreakpointIndicator />

@@ -1,0 +1,21 @@
+{
+  "name": "@gel/data",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier . --check",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo node_modules"
+  },
+  "devDependencies": {
+    "@gel/eslint-config": "workspace:*",
+    "@gel/prettier-config": "workspace:*",
+    "@gel/tsconfig": "workspace:*"
+  },
+  "prettier": "@gel/prettier-config"
+}

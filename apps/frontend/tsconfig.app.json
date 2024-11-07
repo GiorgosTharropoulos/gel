@@ -1,4 +1,10 @@
 {
   "extends": "@gel/tsconfig/react.json",
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "noUncheckedIndexedAccess": true
+  },
   "include": ["src"]
 }
