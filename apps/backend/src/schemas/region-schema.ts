@@ -31,8 +31,21 @@ const ElectionResultSchema = z.object({
   party: z.array(PartySchema),
 });
 
+export const RegionWinnerSchema = z.object({
+  EP_ID: z.number(),
+  PARTY_ID: z.number(),
+  PARTY_ID_2: z.number(),
+  Perc: z.number(),
+  Edres: z.number(),
+  Perc2: z.number(),
+  NumTm: z.number(),
+  Updated: z.string().datetime(),
+  official: z.number().min(0).max(1),
+});
+
 // Type inference
 type ElectionResult = z.infer<typeof ElectionResultSchema>;
 type Party = z.infer<typeof PartySchema>;
+type RegionWinner = z.infer<typeof RegionWinnerSchema>;
 
 export { ElectionResultSchema, PartySchema, type ElectionResult, type Party };
