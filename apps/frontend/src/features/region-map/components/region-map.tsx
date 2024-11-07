@@ -23,6 +23,9 @@ interface FeatureCollection
   features: Feature[];
 }
 
+const MAP_WIDTH = 800;
+const MAP_HEIGHT = 600;
+
 const featureCollection = feature(
   // @ts-expect-error - types are wrong
   mapdata,
@@ -72,9 +75,9 @@ export function RegionMap({
       const y = (y0 + y1) / 2;
       const scale = Math.max(
         1,
-        Math.min(8, 0.9 / Math.max(dx / 800, dy / 600)),
+        Math.min(8, 0.9 / Math.max(dx / MAP_WIDTH, dy / MAP_HEIGHT)),
       );
-      const translate = [800 / 2 - scale * x, 600 / 2 - scale * y];
+      const translate = [MAP_WIDTH / 2 - scale * x, MAP_HEIGHT / 2 - scale * y];
 
       d3.select("svg g")
         .transition()
@@ -86,21 +89,23 @@ export function RegionMap({
   return (
     <svg
       className="max-h-[600px] w-full"
-      viewBox="0 0 800 600"
+      viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
       onClick={handleBackgroundClick}
     >
       <g className="regions">
-        {featureCollection.features.map((d, i) => (
+        {featureCollection.features.map((feature, i) => (
           <path
-            d={pathGenerator(d) ?? ""}
-            className={clsx(d.id === selectedRegionId && "fill-yellow-500")}
+            d={pathGenerator(feature) ?? ""}
+            className={clsx(
+              feature.id === selectedRegionId && "fill-yellow-500",
+            )}
             fill={clsx(
               `rgba(38,50,56,${(1 / featureCollection.features.length) * i})`,
             )}
             stroke="#FFFFFF"
             strokeWidth={0.5}
-            onClick={(event) => handleRegionClick(event, d)}
-            onMouseEnter={() => onEnterRegion(d.id)}
+            onClick={(event) => handleRegionClick(event, feature)}
+            onMouseEnter={() => onEnterRegion(feature.id)}
           />
         ))}
       </g>
