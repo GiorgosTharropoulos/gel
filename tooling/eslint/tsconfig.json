@@ -1,0 +1,5 @@
+{
+  "extends": "@gel/tsconfig/base.json",
+  "include": ["."],
+  "exclude": ["node_modules"]
+}
