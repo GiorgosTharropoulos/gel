@@ -3,7 +3,10 @@ import invariant from "tiny-invariant";
 import { parties as partiesMap } from "@gel/data/parties";
 import { regions } from "@gel/data/regions";
 
-import type { ElectionResult as RegionResult } from "../schemas/region-schema";
+import type {
+  ElectionResult as RegionResult,
+  RegionWinner,
+} from "../schemas/region-schema";
 
 export function regionResultsToDTO(regionResults: RegionResult) {
   const region = regions[regionResults.EP_ID];
@@ -51,4 +54,34 @@ export function regionResultsToDTO(regionResults: RegionResult) {
     },
     parties,
   };
+}
+
+export function regionWinnerToDTO(winners: RegionWinner[]) {
+  return winners.map((winner) => {
+    const party = partiesMap[winner.PARTY_ID];
+    const region = regions[winner.EP_ID];
+
+    invariant(party, `Party with id ${winner.PARTY_ID} not found`);
+    invariant(region, `Region with id ${winner.EP_ID} not found`);
+
+    return {
+      district: {
+        id: region.id,
+        name: region.name,
+        reporting: {
+          percentage: (winner.NumTm / region.countTm) * 100,
+          countedStations: winner.NumTm,
+          totalStations: region.countTm,
+        },
+      },
+      winner: {
+        id: winner.PARTY_ID,
+        name: party.name,
+        shortName: party.shortName,
+        color: `#${party.color}`,
+        seats: winner.Edres,
+        percentage: winner.Perc,
+      },
+    };
+  });
 }

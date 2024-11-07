@@ -7,8 +7,14 @@ import invariant from "tiny-invariant";
 import { parties as partiesMap } from "@gel/data/parties";
 
 import type { ElectionResults as NationElectionResults } from "./schemas/nation-wide-schema";
-import type { ElectionResult as RegionResult } from "./schemas/region-schema";
-import { regionResultsToDTO } from "./services/region.service";
+import type {
+  ElectionResult as RegionResult,
+  RegionWinner,
+} from "./schemas/region-schema";
+import {
+  regionResultsToDTO,
+  regionWinnerToDTO,
+} from "./services/region.service";
 
 const hono = new Hono();
 hono.use(logger());
@@ -81,6 +87,10 @@ export const app = hono
       .get(`dyn/v/ep_${c.req.param("regionId")}.js`)
       .json<RegionResult>();
     return c.json(regionResultsToDTO(response));
+  })
+  .get("/api/regions/winners", async (c) => {
+    const response = await http.get("dyn/v/eps.js").json<RegionWinner[]>();
+    return c.json(regionWinnerToDTO(response));
   });
 
 serve(hono);

@@ -46,6 +46,6 @@ export const RegionWinnerSchema = z.object({
 // Type inference
 type ElectionResult = z.infer<typeof ElectionResultSchema>;
 type Party = z.infer<typeof PartySchema>;
-type RegionWinner = z.infer<typeof RegionWinnerSchema>;
+export type RegionWinner = z.infer<typeof RegionWinnerSchema>;
 
 export { ElectionResultSchema, PartySchema, type ElectionResult, type Party };
