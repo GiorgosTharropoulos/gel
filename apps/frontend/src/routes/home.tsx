@@ -7,14 +7,18 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 
+import { regionWinnersOptions } from "~/api/region";
 import { ResultsCard } from "~/components/results/results-card";
 import { HeadsUp } from "~/features/home/components/heads-up";
 import { nationWideOptions } from "../api/nation-wide";
 
 export const Route = createFileRoute("/home")({
   component: RouteComponent,
-  async loader(opts) {
-    return opts.context.queryClient.ensureQueryData(nationWideOptions());
+  async loader({ context }) {
+    return Promise.all([
+      context.queryClient.ensureQueryData(nationWideOptions()),
+      context.queryClient.ensureQueryData(regionWinnersOptions()),
+    ]);
   },
 });
 
