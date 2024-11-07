@@ -6,7 +6,10 @@ import { fileURLToPath } from "node:url";
 
 /** @type { PrettierConfig | SortImportsConfig | TailwindConfig} */
 const config = {
-  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  plugins: [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss",
+  ],
   // TODO: Add tailwind config
   //   tailwindConfig: fileURLToPath(new URL("../../packages/tailwind-config/base.ts", import.meta.url)),
   tailwindFunctions: ["cn", "cva"],

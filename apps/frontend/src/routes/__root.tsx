@@ -4,9 +4,11 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 import BreakpointIndicator from "../components/tailwind-indicator";
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  component: RootComponent,
-});
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
+  {
+    component: RootComponent,
+  },
+);
 
 function RootComponent() {
   return (
