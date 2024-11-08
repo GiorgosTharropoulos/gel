@@ -24,10 +24,6 @@ const http = ky.create({
   prefixUrl: "https://ekloges-prev.singularlogic.eu/2023/june/",
 });
 
-hono.get("/health", async (c) => {
-  return c.json({ status: "ok" });
-});
-
 function nationStatsToDTO(nationResults: NationElectionResults) {
   const totalVotes =
     nationResults.Akyra + nationResults.Egkyra + nationResults.Leyka;
