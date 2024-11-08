@@ -4,8 +4,8 @@ import type { Config as SVGOConfig } from "svgo";
 import ky from "ky";
 import { optimize } from "svgo";
 
-import type { PartyDetails } from "@gel/data/parties";
-import { parties as partiesMap } from "@gel/data/parties";
+import type { PartyDetails } from "@gel/data";
+import { parties as partiesMap } from "@gel/data";
 
 const ignoredParties = new Set([998]);
 const parties = Object.values(partiesMap).filter(
