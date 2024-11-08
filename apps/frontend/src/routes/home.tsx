@@ -62,6 +62,7 @@ function RouteComponent() {
       seats: firstParty?.seats,
       color: firstParty?.color,
       seatsPercentage: ((firstParty?.seats ?? 0) / 300) * 100,
+      logo: firstParty?.logo,
     },
     runnerup: {
       name: secondParty?.name,
@@ -70,6 +71,7 @@ function RouteComponent() {
       seats: secondParty?.seats,
       color: secondParty?.color,
       seatsPercentage: ((secondParty?.seats ?? 0) / 300) * 100,
+      logo: secondParty?.logo,
     },
     seats: {
       toWin: 150,
@@ -146,17 +148,24 @@ function RouteComponent() {
           {inParliament.map((party) => (
             <li
               key={party.id}
-              className="rounded border p-1 shadow hover:shadow-md lg:p-3"
+              className="w-24 rounded border bg-white p-1 text-center text-black shadow lg:p-3"
             >
-              <div className="text-sm">{party.name}</div>
+              <div className="flex h-7 items-center justify-center text-center lg:h-14">
+                <img
+                  src={`/party-images/${party.logo}`}
+                  className="inline h-full object-contain"
+                />
+              </div>
               <div className="text-sm font-bold">
                 {party.percentage.toFixed(2)}%
               </div>
               <div className="text-sm">{party.seats}</div>
             </li>
           ))}
-          <li className="rounded border p-1 shadow hover:shadow-md lg:p-3">
-            <div className="text-sm">Other</div>
+          <li className="w-24 rounded border bg-white p-1 text-center text-black shadow lg:p-3">
+            <div className="flex h-7 items-center justify-center text-center lg:h-14">
+              Other
+            </div>
             <div className="text-sm font-bold">
               {outOfParliamentPercentage.toFixed(2)}%
             </div>

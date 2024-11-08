@@ -1,8 +1,8 @@
 import { hc } from "hono/client";
 
-import type { app } from "./index";
+import type { api } from "./index";
 
-export const appClient = hc<typeof app>("/");
+export const appClient = hc<typeof api>("/");
 
 export interface PartyResult {
   id: number;

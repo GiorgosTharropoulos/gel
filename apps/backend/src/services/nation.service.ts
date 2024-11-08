@@ -29,6 +29,7 @@ export function nationStatsToDTO(nationResults: NationElectionResults) {
       seats: p.Edres + p.EdresEpik,
       inParliament: p.TakesEdres > 0,
       rank: p.Rank,
+      logo: party.logo,
     };
   });
 
