@@ -5,6 +5,7 @@ interface HeadsUpResult {
   seats?: number;
   color?: string;
   seatsPercentage?: number;
+  logo?: string;
 }
 
 interface HeadsUpProps {
@@ -16,15 +17,15 @@ export function HeadsUp({ winner, runnerUp }: HeadsUpProps) {
   const markerPosition = (150 / 300) * 100;
 
   return (
-    <div className="w-full p-6 text-white rounded-lg">
+    <div className="w-full rounded-lg p-6 text-white">
       {/* Winner Banner */}
-      <div className="flex items-center gap-2 mb-4">
+      <div className="mb-4 flex items-center gap-2">
         <div
           style={{ backgroundColor: winner.color }}
-          className="flex items-center justify-center w-6 h-6 rounded-full"
+          className="flex h-6 w-6 items-center justify-center rounded-full"
         >
           <svg
-            className="w-4 h-4 text-white"
+            className="h-4 w-4 text-white"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -42,10 +43,17 @@ export function HeadsUp({ winner, runnerUp }: HeadsUpProps) {
 
       {/* Results Bar */}
       <div className="mb-4">
-        <div className="flex justify-between mb-2">
+        <div className="mb-2 flex justify-between">
           {/* Left Candidate */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gray-600 rounded-full"></div>
+            <div className="flex size-10 items-center justify-center overflow-hidden rounded-full bg-white">
+              {winner.logo && (
+                <img
+                  src={`/party-images/${winner.logo}`}
+                  className="object-cover"
+                />
+              )}
+            </div>
             <div style={{ color: winner.color }} className="text-3xl font-bold">
               {winner.seats}
             </div>
@@ -61,20 +69,27 @@ export function HeadsUp({ winner, runnerUp }: HeadsUpProps) {
             >
               {runnerUp.seats}
             </div>
-            <div className="w-10 h-10 bg-gray-600 rounded-full"></div>
+            <div className="flex size-10 items-center justify-center overflow-hidden rounded-full bg-white">
+              {runnerUp.logo && (
+                <img
+                  src={`/party-images/${runnerUp.logo}`}
+                  className="object-cover"
+                />
+              )}
+            </div>
           </div>
         </div>
 
         {/* Progress Bar Container */}
-        <div className="relative h-4 mt-5">
+        <div className="relative mt-5 h-4">
           {/* Background Bar */}
-          <div className="absolute flex w-full h-full overflow-hidden rounded-full">
+          <div className="absolute flex h-full w-full overflow-hidden rounded-full">
             <div className="w-1/2 border-r border-gray-700 bg-blue-500/20"></div>
             <div className="w-1/2 bg-gray-500/20"></div>
           </div>
 
           {/* Actual Progress Bars */}
-          <div className="absolute flex w-full h-full overflow-hidden rounded-full">
+          <div className="absolute flex h-full w-full overflow-hidden rounded-full">
             <div
               style={{
                 backgroundColor: winner.color,
@@ -97,14 +112,14 @@ export function HeadsUp({ winner, runnerUp }: HeadsUpProps) {
             className="absolute top-0 h-full w-0.5 bg-gray-300"
             style={{ left: `${markerPosition}%` }}
           >
-            <div className="absolute text-xs text-gray-300 transform -translate-x-1/2 -top-5 left-1/2">
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2 transform text-xs text-gray-300">
               150
             </div>
           </div>
         </div>
 
         {/* Vote Counts */}
-        <div className="flex justify-between mt-2 text-sm text-gray-400">
+        <div className="mt-2 flex justify-between text-sm text-gray-400">
           <div>
             {winner.votes?.toLocaleString()} votes (
             {winner.votePercentage?.toFixed(2)}%)
