@@ -1,0 +1,27 @@
+{
+  "name": "@gel/party-images",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier . --check",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo node_modules"
+  },
+  "devDependencies": {
+    "@gel/data": "workspace:*",
+    "@gel/eslint-config": "workspace:*",
+    "@gel/prettier-config": "workspace:*",
+    "@gel/tsconfig": "workspace:*",
+    "svgo": "^3.3.2",
+    "tsx": "^4.19.2"
+  },
+  "dependencies": {
+    "ky": "^1.7.2"
+  },
+  "prettier": "@gel/prettier-config"
+}
