@@ -58,9 +58,21 @@ app.get(
   }),
 );
 app.get(
+  "/logo.svg",
+  serveStatic({
+    path: "./public/logo.svg",
+    onFound(_path, c) {
+      c.header(
+        "Cache-Control",
+        `public, max-age=${STATIC_CACHE_DURATION}, immutable`,
+      );
+    },
+  }),
+);
+app.get(
   "/assets/*",
   serveStatic({
-    root: "../frontend/dist",
+    root: "./public/dist",
     onFound(_path, c) {
       c.header(
         "Cache-Control",
@@ -71,7 +83,7 @@ app.get(
 );
 app.get("*", async (c) => {
   return c.newResponse(
-    (await fs.readFile("../frontend/dist/index.html")).toString(),
+    (await fs.readFile("./public/dist/index.html")).toString(),
     200,
     {
       "Content-Type": "text/html",
@@ -82,4 +94,8 @@ app.get("*", async (c) => {
   );
 });
 
-serve(app);
+serve({
+  fetch: app.fetch,
+  hostname: "0.0.0.0",
+  port: 3000,
+});

@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import { parties as partiesMap } from "@gel/data/parties";
+import { parties as partiesMap } from "@gel/data";
 
 import type { ElectionResults as NationElectionResults } from "../schemas/nation-wide-schema";
 
