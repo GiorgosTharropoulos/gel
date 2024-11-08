@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function BreakpointIndicator() {
+export function BreakpointIndicator() {
   const [breakpoint, setBreakpoint] = useState("");
 
   useEffect(() => {
@@ -40,5 +40,3 @@ function BreakpointIndicator() {
     </div>
   );
 }
-
-export default BreakpointIndicator;
