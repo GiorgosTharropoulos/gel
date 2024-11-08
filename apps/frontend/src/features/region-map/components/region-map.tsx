@@ -66,6 +66,13 @@ export function RegionMap({
     onSelectRegion(null);
   }
 
+  function handleEnterRegion(regionId: string) {
+    if (ignoredRegions.has(regionId)) {
+      return;
+    }
+    onEnterRegion(regionId);
+  }
+
   React.useEffect(() => {
     if (selectedRegionId === null) {
       d3.select("svg g").transition().duration(750).attr("transform", "");
@@ -122,7 +129,7 @@ export function RegionMap({
               stroke="#FFFFFF"
               strokeWidth={0.5}
               onClick={(event) => handleRegionClick(event, feature)}
-              onMouseEnter={() => onEnterRegion(feature.id)}
+              onMouseEnter={() => handleEnterRegion(feature.id)}
             />
           );
         })}
