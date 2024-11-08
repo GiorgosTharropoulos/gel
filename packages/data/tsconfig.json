@@ -1,4 +1,10 @@
 {
   "extends": "@gel/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "noEmit": false,
+    "declaration": true,
+    "allowImportingTsExtensions": false
+  },
   "include": ["src"]
 }

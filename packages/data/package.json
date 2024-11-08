@@ -4,9 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./*": "./src/*.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
     "lint": "eslint .",
     "format": "prettier . --check",
     "typecheck": "tsc --noEmit",
@@ -17,5 +22,8 @@
     "@gel/prettier-config": "workspace:*",
     "@gel/tsconfig": "workspace:*"
   },
-  "prettier": "@gel/prettier-config"
+  "prettier": "@gel/prettier-config",
+  "dependencies": {
+    "tsup": "^8.3.5"
+  }
 }
