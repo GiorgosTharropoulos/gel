@@ -1,6 +1,5 @@
 import * as React from "react";
 import { invariant } from "@tanstack/react-router";
-import clsx from "clsx";
 import * as d3 from "d3";
 import { feature } from "topojson-client";
 
@@ -38,19 +37,28 @@ const identityProjection = d3
 const pathGenerator = d3.geoPath().projection(identityProjection);
 const featuresMap = new Map(featureCollection.features.map((d) => [d.id, d]));
 
+const ignoredRegions = new Set(["99"]);
+
 export interface RegionMapProps {
   selectedRegionId: string | null;
+  regionColors?: Map<string, { primary: string; secondary: string }>;
   onSelectRegion(regionId: string | null): void;
   onEnterRegion(regionId: string): void;
 }
 
 export function RegionMap({
-  onSelectRegion,
   selectedRegionId,
+  regionColors,
+  onSelectRegion,
   onEnterRegion,
 }: RegionMapProps) {
   function handleRegionClick(event: React.MouseEvent, d: Feature) {
     event.stopPropagation();
+
+    if (ignoredRegions.has(d.id)) {
+      return;
+    }
+
     onSelectRegion(d.id);
   }
 
@@ -93,21 +101,31 @@ export function RegionMap({
       onClick={handleBackgroundClick}
     >
       <g className="regions">
-        {featureCollection.features.map((feature, i) => (
-          <path
-            d={pathGenerator(feature) ?? ""}
-            className={clsx(
-              feature.id === selectedRegionId && "fill-yellow-500",
-            )}
-            fill={clsx(
-              `rgba(38,50,56,${(1 / featureCollection.features.length) * i})`,
-            )}
-            stroke="#FFFFFF"
-            strokeWidth={0.5}
-            onClick={(event) => handleRegionClick(event, feature)}
-            onMouseEnter={() => onEnterRegion(feature.id)}
-          />
-        ))}
+        {featureCollection.features.map((feature, i) => {
+          const isSelected = feature.id === selectedRegionId;
+
+          const defaultColor = `rgba(38,50,56,${(1 / featureCollection.features.length) * i})`;
+          const regionColor = regionColors?.get(feature.id) ?? {
+            primary: defaultColor,
+            secondary: defaultColor,
+          };
+          const fillColor =
+            selectedRegionId && !isSelected
+              ? regionColor.secondary
+              : regionColor.primary;
+
+          return (
+            <path
+              key={feature.id}
+              d={pathGenerator(feature) ?? ""}
+              fill={fillColor}
+              stroke="#FFFFFF"
+              strokeWidth={0.5}
+              onClick={(event) => handleRegionClick(event, feature)}
+              onMouseEnter={() => onEnterRegion(feature.id)}
+            />
+          );
+        })}
       </g>
     </svg>
   );

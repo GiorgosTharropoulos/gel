@@ -10,6 +10,7 @@ import {
 import { regionWinnersOptions } from "~/api/region";
 import { ResultsCard } from "~/components/results/results-card";
 import { HeadsUp } from "~/features/home/components/heads-up";
+import { blendWithGray } from "~/utils/colors";
 import { nationWideOptions } from "../api/nation-wide";
 
 export const Route = createFileRoute("/home")({
@@ -30,6 +31,8 @@ const RegionMap = React.lazy(() =>
 
 function RouteComponent() {
   const { data: nationResults } = useSuspenseQuery(nationWideOptions());
+  const { data: regionWinners } = useSuspenseQuery(regionWinnersOptions());
+
   const lastUpdated = new Date(nationResults.lastUpdated);
   const partiesGroupedByInParliament = Object.groupBy(
     nationResults.parties,
@@ -74,6 +77,20 @@ function RouteComponent() {
     },
   };
 
+  const regionColors = React.useMemo(
+    () =>
+      new Map(
+        regionWinners.map(({ region, winner }) => [
+          region.id.toString(),
+          {
+            primary: winner.color,
+            secondary: blendWithGray(winner.color, 0.5),
+          },
+        ]),
+      ),
+    [regionWinners],
+  );
+
   function handleSelectRegion(regionId: string | null) {
     if (regionId) {
       router.navigate({ to: "/home/$regionId", params: { regionId } });
@@ -87,9 +104,9 @@ function RouteComponent() {
   }
 
   return (
-    <div className="flex flex-col h-screen gap-4 px-2 md:px-8">
+    <div className="flex h-screen flex-col gap-4 px-2 md:px-8">
       {/* Stats Banner */}
-      <div className="flex justify-between p-2 min-h-14">
+      <div className="flex min-h-14 justify-between p-2">
         <div className="flex flex-col gap-6 sm:flex-row">
           <div className="flex flex-col">
             <div className="text-sm">Last Updated</div>
@@ -129,7 +146,7 @@ function RouteComponent() {
           {inParliament.map((party) => (
             <li
               key={party.id}
-              className="p-1 border rounded shadow hover:shadow-md lg:p-3"
+              className="rounded border p-1 shadow hover:shadow-md lg:p-3"
             >
               <div className="text-sm">{party.name}</div>
               <div className="text-sm font-bold">
@@ -138,7 +155,7 @@ function RouteComponent() {
               <div className="text-sm">{party.seats}</div>
             </li>
           ))}
-          <li className="p-1 border rounded shadow hover:shadow-md lg:p-3">
+          <li className="rounded border p-1 shadow hover:shadow-md lg:p-3">
             <div className="text-sm">Other</div>
             <div className="text-sm font-bold">
               {outOfParliamentPercentage.toFixed(2)}%
@@ -153,12 +170,13 @@ function RouteComponent() {
         <div className="flex-1">
           <React.Suspense
             fallback={
-              <div className="flex items-center justify-center w-full h-auto">
+              <div className="flex h-auto w-full items-center justify-center">
                 Loading...
               </div>
             }
           >
             <RegionMap
+              regionColors={regionColors}
               selectedRegionId={selectedRegionId}
               onSelectRegion={handleSelectRegion}
               onEnterRegion={handleEnterRegion}
