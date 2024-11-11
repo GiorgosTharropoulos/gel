@@ -34,6 +34,14 @@ export const api = app
       .json<NationElectionResults>();
     return c.json(nationStatsToDTO(response));
   })
+  .get("regions", async (c) => {
+    const { regions } = await import("@gel/data");
+    c.header(
+      "Cache-Control",
+      `public, max-age=${STATIC_CACHE_DURATION}, immutable`,
+    );
+    return c.json(regions);
+  })
   .get("regions/winners", async (c) => {
     const response = await http.get("dyn/v/eps.js").json<RegionWinner[]>();
     return c.json(regionWinnerToDTO(response));

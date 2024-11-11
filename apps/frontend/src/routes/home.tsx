@@ -7,9 +7,10 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 
-import { regionWinnersOptions } from "~/api/region";
+import { regionsNames, regionWinnersOptions } from "~/api/region";
 import { ResultsCard } from "~/components/results/results-card";
 import { HeadsUp } from "~/features/home/components/heads-up";
+import { RegionSelect } from "~/features/region-map/components/region-select";
 import { blendWithGray } from "~/utils/colors";
 import { nationWideOptions } from "../api/nation-wide";
 
@@ -19,6 +20,7 @@ export const Route = createFileRoute("/home")({
     return Promise.all([
       context.queryClient.ensureQueryData(nationWideOptions()),
       context.queryClient.ensureQueryData(regionWinnersOptions()),
+      context.queryClient.ensureQueryData(regionsNames()),
     ]);
   },
 });
@@ -175,6 +177,12 @@ function RouteComponent() {
 
       <HeadsUp winner={results.winner} runnerUp={results.runnerup} />
 
+      <div className="flex flex-col gap-4 p-2">
+        <RegionSelect
+          selectedRegion={selectedRegionId}
+          onRegionChange={handleSelectRegion}
+        />
+      </div>
       <div className="flex flex-col md:flex-row">
         <div className="flex-1">
           <React.Suspense

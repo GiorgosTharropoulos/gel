@@ -36,3 +36,18 @@ export function regionWinnersOptions() {
     },
   });
 }
+
+export function regionsNames() {
+  return queryOptions({
+    queryKey: ["regions", "names"],
+    queryFn: async ({ signal }) => {
+      const response = await appClient.api.regions.$get(undefined, {
+        init: {
+          signal,
+        },
+      });
+      return response.json();
+    },
+    staleTime: Infinity,
+  });
+}
