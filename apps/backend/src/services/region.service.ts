@@ -34,6 +34,7 @@ export function regionResultsToDTO(regionResults: RegionResult) {
       percentage: p.Perc,
       votes: p.VOTES,
       seats: p.Edres,
+      logo: party.logo,
     };
   });
 

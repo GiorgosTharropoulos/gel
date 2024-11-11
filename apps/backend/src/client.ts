@@ -12,6 +12,7 @@ export interface PartyResult {
   percentage: number;
   votes: number;
   seats: number;
+  logo?: string;
 }
 
 export interface ReportingResult {

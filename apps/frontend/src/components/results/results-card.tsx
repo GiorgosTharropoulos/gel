@@ -23,7 +23,13 @@ export function ResultsCard({
         {parties
           .filter((p) => p.percentage >= 1)
           .map((p) => (
-            <li key={p.id} className="grid grid-cols-3 gap-4">
+            <li key={p.id} className="grid grid-cols-4 gap-3">
+              <div className="flex h-7 items-center justify-center text-center lg:h-14">
+                <img
+                  src={`/party-images/${p.logo}`}
+                  className="inline h-full object-contain"
+                />
+              </div>
               <div className="text-sm">{p.shortName}</div>
               <div className="text-sm font-bold">
                 {p.percentage.toFixed(2)}%

@@ -1,6 +1,6 @@
-import { Cross2Icon } from "@radix-ui/react-icons";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { X } from "lucide-react";
 
 import { regionResultsOptions } from "~/api/region";
 import { ResultsCard } from "~/components/results/results-card";
@@ -26,7 +26,7 @@ function RouteComponent() {
       reporting={regionResults.reporting}
       close={
         <Link to="/home">
-          <Cross2Icon className="size-4" />
+          <X className="size-4" />
           <span className="sr-only">Close</span>
         </Link>
       }
