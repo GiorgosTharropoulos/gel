@@ -130,6 +130,7 @@ export function RegionMap({
               strokeWidth={0.5}
               onClick={(event) => handleRegionClick(event, feature)}
               onMouseEnter={() => handleEnterRegion(feature.id)}
+              className="cursor-pointer"
             />
           );
         })}
