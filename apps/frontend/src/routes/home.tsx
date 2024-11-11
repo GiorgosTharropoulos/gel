@@ -175,9 +175,11 @@ function RouteComponent() {
         </ol>
       )}
 
-      <HeadsUp winner={results.winner} runnerUp={results.runnerup} />
+      <div className="px-4 md:px-8">
+        <HeadsUp winner={results.winner} runnerUp={results.runnerup} />
+      </div>
 
-      <div className="flex flex-col gap-4 p-2">
+      <div className="flex flex-col gap-4 px-4 md:px-8">
         <RegionSelect
           selectedRegion={selectedRegionId}
           onRegionChange={handleSelectRegion}

@@ -17,7 +17,7 @@ export function HeadsUp({ winner, runnerUp }: HeadsUpProps) {
   const markerPosition = (150 / 300) * 100;
 
   return (
-    <div className="w-full rounded-lg p-6 text-white">
+    <div className="w-full rounded-lg text-white">
       {/* Winner Banner */}
       <div className="mb-4 flex items-center gap-2">
         <div
