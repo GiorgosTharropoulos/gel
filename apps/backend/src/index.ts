@@ -16,7 +16,7 @@ import {
   regionWinnerToDTO,
 } from "./services/region.service";
 
-const STATIC_CACHE_DURATION = 60 * 60 * 24 * 365; // 1 year
+const STATIC_CACHE_DURATION = 60 * 60 * 24 * 365;
 
 const http = ky.create({
   keepalive: true,

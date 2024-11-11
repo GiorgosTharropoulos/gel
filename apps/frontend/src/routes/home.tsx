@@ -108,7 +108,7 @@ function RouteComponent() {
   }
 
   return (
-    <div className="bg-background flex flex-col gap-4 md:h-screen">
+    <div className="flex flex-col gap-4 bg-background md:h-screen">
       {/* Stats Banner */}
       <div className="flex min-h-14 items-center justify-between border-b p-2 md:px-8">
         <div className="flex flex-col gap-6 sm:flex-row">
