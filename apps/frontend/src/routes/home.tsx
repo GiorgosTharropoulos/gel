@@ -203,7 +203,7 @@ function RouteComponent() {
           </React.Suspense>
         </div>
 
-        <div className="max-w-full p-2 md:max-w-md">
+        <div className="max-w-full p-2 md:max-w-md md:pr-8">
           {!detailsMatch && (
             <ResultsCard
               title="Nation"
