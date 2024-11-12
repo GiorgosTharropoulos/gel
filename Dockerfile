@@ -25,9 +25,7 @@ COPY --from=builder --chown=hono:nodejs /app/packages/data/dist /app/packages/da
 COPY --from=builder --chown=hono:nodejs /app/packages/data/package.json /app/packages/data/package.json
 COPY --from=builder --chown=hono:nodejs /app/apps/backend/node_modules /app/apps/backend/node_modules
 
-COPY --from=builder --chown=hono:nodejs /app/apps/backend/public/party-images /app/apps/backend/public/party-images
-COPY --from=builder --chown=hono:nodejs /app/apps/backend/public/logo.svg /app/apps/backend/public/logo.svg
-COPY --from=builder --chown=hono:nodejs /app/apps/frontend/dist /app/apps/backend/public/dist
+COPY --from=builder --chown=hono:nodejs /app/apps/backend/public /app/apps/backend/public
 
 COPY --from=builder --chown=hono:nodejs /app/apps/backend/dist /app/apps/backend/dist
 COPY --from=builder --chown=hono:nodejs /app/apps/backend/package.json /app/apps/backend/package.json

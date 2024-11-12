@@ -1,5 +1,7 @@
+import path from "node:path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
+import copy from "rollup-plugin-copy";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
@@ -11,6 +13,15 @@ export default defineConfig({
     }),
     react(),
     tsConfigPaths(),
+    copy({
+      targets: [
+        {
+          src: "dist",
+          dest: path.resolve("../backend/public"),
+        },
+      ],
+      hook: "writeBundle",
+    }),
   ],
   define: {
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
