@@ -6,6 +6,7 @@ import {
   useMatch,
   useRouter,
 } from "@tanstack/react-router";
+import { GithubIcon } from "lucide-react";
 
 import { regionsNames, regionWinnersOptions } from "~/api/region";
 import { ResultsCard } from "~/components/results/results-card";
@@ -58,7 +59,7 @@ function RouteComponent() {
 
   const results = {
     winner: {
-      name: firstParty?.name,
+      name: firstParty?.shortName,
       votes: firstParty?.votes,
       votePercentage: firstParty?.percentage,
       seats: firstParty?.seats,
@@ -67,7 +68,7 @@ function RouteComponent() {
       logo: firstParty?.logo,
     },
     runnerup: {
-      name: secondParty?.name,
+      name: secondParty?.shortName,
       votes: secondParty?.votes,
       votePercentage: secondParty?.percentage,
       seats: secondParty?.seats,
@@ -108,8 +109,20 @@ function RouteComponent() {
   }
 
   return (
-    <div className="bg-background flex min-h-screen flex-col gap-4">
+    <div className="flex min-h-screen flex-col bg-background">
       {/* Stats Banner */}
+      <div className="flex items-center justify-between border-b p-2 md:px-8">
+        <h1 className="text-lg font-bold text-primary sm:text-2xl">
+          Greek National Elections Results 2023
+        </h1>
+        <a
+          href="https://github.com/GiorgosTharropoulos/gel"
+          target="_blank"
+          referrerPolicy="no-referrer"
+        >
+          <GithubIcon className="size-6" />
+        </a>
+      </div>
       <div className="flex min-h-14 items-center justify-between border-b p-2 md:px-8">
         <div className="flex flex-col gap-6 sm:flex-row">
           <div className="flex flex-col">
